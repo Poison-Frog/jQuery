@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+    <meta charset="UTF-8">
+
+    <title>使用拖拽更改支付宝的默认付款方式</title>
+
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+
+    <style type="text/css">
+
+        *{
+
+            padding:0;
+
+            margin:0;
+
+        }
+
+      ul{
+
+          margin-top:20px;
+
+          width:280px;
+
+          height:210px;
+
+          border-left: 1px dashed #ccc;
+
+          border-right: 1px dashed #ccc;
+
+          border-bottom: 1px dashed #ccc;
+
+          margin-left: 5px;
+
+      }
+
+      li{
+
+          box-sizing:border-box;
+
+          list-style:none;
+
+          width:100%;
+
+          height:30px;
+
+          line-height:30px;
+
+          border-top:1px dashed #ccc;
+
+      }
+
+      .hide{
+
+        display: none;
+
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <h3>使用拖拽更改支付宝的默认付款方式</h3>
+
+    <ul id="card">
+
+      <li draggable="true">招商信用卡</li>     
+
+      <li draggable="true">交通信用卡</li>     
+
+      <li draggable="true">中信储蓄卡</li>     
+
+      <li draggable="true">建行储蓄卡</li>     
+
+      <li draggable="true">蚂蚁花呗</li>      
+
+      <li draggable="true">余额宝</li>     
+
+      <li draggable="true">余额</li>      
+
+    </ul>
+
+    <img src="http://climg.mukewang.com/59705a7b0001736902000080.png" alt="" class="hide">
+
+    <script>
+
+      (function($){
+
+        var dragSrc;
+
+        var a;
+
+        $('li').each(function(index,ele){
+
+          $(ele).on('dragstart',function(e){
+
+            dragSrc = this;
+
+            a = $(this).index();
+
+            // console.log(m);
+
+            // e.originalEvent.dataTransfer.setData('text/html',this.innerHTML);
+
+            e.originalEvent.dataTransfer.setDragImage($('.hide').clone().removeClass('hide')[0],90,0);
+
+          }).on('dragover',function(e){
+
+            e.preventDefault();
+
+          }).on('drop',function(e){
+
+            if(dragSrc!=this){
+
+              var b = $(this).index();
+
+              // dragSrc.innerHTML=this.innerHTML;
+
+              // this.innerHTML = e.originalEvent.dataTransfer.getData('text/html');
+
+              if(b<a){
+
+                $(dragSrc).insertBefore(this);
+
+                console.log(this);
+
+                console.log($(dragSrc));
+
+              }else{
+
+                $(dragSrc).insertAfter(this);
+
+              }
+
+            }
+
+          })
+
+        })
+
+      })(jQuery);
+
+      
+
+    </script>
+
+  </body>
+
+</html>
+

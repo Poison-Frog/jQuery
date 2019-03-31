@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding: 0;
+		}
+		#main{
+			width:200px;
+			height:200px;
+			background: yellow;
+			position: absolute;
+			top:100px;
+			left:100px;
+			-webkit-user-select: none;
+			cursor: move;
+		}
+	</style>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<div id="main">
+		我能被拖动
+	</div>
+    <script type="text/javascript">
+    	var isMouseDown = false;
+        var lastPoint = {};
+        $('#main').on('mousedown', function(e){
+            isMouseDown = true;
+            lastPoint.x = e.pageX;
+            lastPoint.y = e.pageY;
+        });
+        $(document).on('mousemove', function(e){
+            if (isMouseDown){
+                var targetX = parseInt($('#main').css('left')) + e.pageX - lastPoint.x;
+                var targetY = parseInt($('#main').css('top')) + e.pageY - lastPoint.y;
+                $('#main').css('left', targetX + "px");
+                $('#main').css('top', targetY + "px");
+                lastPoint.x = e.pageX;
+                lastPoint.y = e.pageY;
+                if (parseInt($('#main').css('top')) <= 0 ) {
+                    targetY = 0;
+                    $('#main').css('top', targetY + "px");                     
+                    if( parseInt($('#main').css('left')) <= 0 ) {
+                        targetX = 0;
+                        $('#main').css('left', targetX + "px");
+                    }else if( parseInt($('#main').css('left')) + 200 >= window.innerWidth ) {
+                        targetX = window.innerWidth - 200;
+                        $('#main').css('left', targetX + "px");
+                    }
+                }else if( parseInt($('#main').css('left')) <= 0 ) {
+                    targetX = 0;
+                    $('#main').css('left', targetX + "px");                    
+                    if( parseInt($('#main').css('top')) + 200 >= window.innerHeight ) {
+                        targetY = window.innerHeight - 200;
+                        $('#main').css('top', targetY + "px");
+                    }else if (parseInt($('#main').css('top')) <= 0 ) {
+                    targetY = 0;
+                    $('#main').css('top', targetY + "px");
+                    }
+                }else if( parseInt($('#main').css('left')) + 200 >= window.innerWidth ) {
+                    targetX = window.innerWidth - 200;
+                    $('#main').css('left', targetX + "px");
+                    if( parseInt($('#main').css('top')) + 200 >= window.innerHeight ) {
+                        targetY = window.innerHeight - 200;
+                        $('#main').css('top', targetY + "px");
+                    }else if (parseInt($('#main').css('top')) <= 0 ) {
+                    targetY = 0;
+                    $('#main').css('top', targetY + "px");
+                    }                
+                }else if( parseInt($('#main').css('top')) + 200 >= window.innerHeight ) {
+                    targetY = window.innerHeight - 200;
+                    $('#main').css('top', targetY + "px");
+                    if( parseInt($('#main').css('left')) <= 0 ) {
+                        targetX = 0;
+                        $('#main').css('left', targetX + "px");
+                    }else if( parseInt($('#main').css('left')) + 200 >= window.innerWidth ) {
+                        targetX = window.innerWidth - 200;
+                        $('#main').css('left', targetX + "px");
+                    }
+                }
+            }
+        }).on('mouseup', function(e) {
+            isMouseDown = false;
+            lastPoint = {};
+        });
+    </script>
+</body>
+</html>
