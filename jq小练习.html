@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>each方法</title>
+</head>
+<body>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script> 
+    <script>
+        var obj={
+            one:"Tom",
+            two:"Jane",
+            three:"KangKang",
+            four:"mary",
+            five:"Jasper"
+        };
+        $.each(obj, function(index,currentValue){
+        if(index==="four"){
+            return false;
+        }
+        document.write(currentValue+"<br/>");
+    })
+    </script>
+</body>
+</html>
